@@ -1,5 +1,8 @@
 {
   "name": "valiss",
-  "integrations": {},
-  "type": "angular"
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular",
+  "id": "c8795f61"
 }

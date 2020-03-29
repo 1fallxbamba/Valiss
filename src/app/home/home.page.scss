@@ -1,31 +1,98 @@
-#container {
-  text-align: center;
+ion-slide {
+  padding: 60px 20px;
+  display: block;
+  h1 {
+    font-size: 35px;
+    font-weight: bold;
+  }
+}
 
+.startBtn {
+  --background: #1aa468;
+}
+
+.logo-header {
+  position: relative;
+  background: #1AA468; // 500 note #f1bc50; //rgb(241, 188, 80);//#7F4F77 10k note;//#1AA468 5k note;//#A43136 1k note; //#219BF3 nice blue; //#2196F3 ;//#50bfbf;
+  height: 100px;
+  border-radius: 0em;
+}
+
+.logo-header::after {
+  content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 0;
+  left: 15%;
+  width: 0;
+  height: 0;
+  border: 20px solid transparent;
+  border-top-color: #1AA468;//500 note #f2be59; //#7F4F77 10k note;//#1AA468 5k note;// #A43136; 1k note //#219BF3 nice blue; //#50bfbf; // #2a95bf
+  border-bottom: 0;
+  margin-left: -15px;
+  margin-bottom: -15px;
 }
 
-#container strong {
+.logo-img {
+  display: block;
+  width: auto;
+  margin: 0 auto;
+  text-align: center;
+  height: 185px;
+  margin-top: -60px;
+}
+
+.welcome {
+  font-family: "Poppins", sans-serif;
+}
+
+.heading {
+  margin-bottom: 30px;
+  margin-top: 60px;
+  h1 {
+    font-size: 35px;
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+.homeDiv {
+  margin-top: 70px;
+}
+
+.inputsDiv {
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+.myInput {
+  --highlight-color-focused: #219bf3;
+  --highlight-color-valid: #75ad3c;
   font-size: 20px;
-  line-height: 26px;
+  font-family: "Poppins", sans-serif;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.loginBtn {
+  --background: #1AA468;//500 note #f1ba4a; //rgb(241, 186, 74);//#7F4F77 10k note;//#1AA468 5k note;//#A43136 1k note;//#219BF3 nice blue;
+  --background-hover: transparent;
+  --background-activated: transparent;
+  margin-top: 30px;
+  font-family: "Poppins", sans-serif;
 }
 
-#container a {
-  text-decoration: none;
+.errorMessage {
+  margin-top: 20px;
+  margin-bottom: -8px;
 }
 
-ion-content ion-toolbar {
-  --background: translucent;
+.registerDiv {
+  margin-top: 40px;
+  h3 {
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .inputsDiv {
+    margin-right: 30px;
+    margin-left: 30px;
+  }
 }

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="account"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="margin-left: -50px;" class="ion-text-center">My Friends</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+
+      <ng-template #loader>
+        <h3 style="text-align: center !important;">Getting friends</h3>
+        <div class="ion-text-center">
+
+          <ion-spinner name="bubbles"></ion-spinner>
+
+        </div>
+    
+  </ng-template>
+
+
+  <div *ngIf="FriendsData; else loader" >
+
+    <ion-list >
+      <ion-item  *ngFor="let friendname of FriendsData.names; let i = index" >
+        <ion-avatar slot="start">
+          <img src="http://daavsecurite.com/yea/yeaapi/core/post/file/uploads/{{FriendsData.pictures[i]}}">
+        </ion-avatar>
+        <h3> {{friendname}}  </h3>
+         <p> {{FriendsData.usernames[i]}} </p>
+      </ion-item>
+     
+    </ion-list>
+
+  </div>
+
+</ion-content>

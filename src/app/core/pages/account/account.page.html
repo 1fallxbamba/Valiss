@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">My Valiss</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+  <ng-template #loader>
+    <ion-spinner name="bubbles"></ion-spinner>
+  </ng-template>
+
+  <div class="ion-text-center userInfo" >
+    <img *ngIf="userData.photo; else loader" src="http://daavsecurite.com/yea/yeaapi/core/post/file/uploads/{{userData.photo}}">
+    <h1 style="font-size:1.4em" no-margin>Welcome, </h1>
+      <h1 *ngIf="userData.name; else loader" style="margin-top: 5px;">{{userData.name}}</h1>
+  </div>
+  <ion-grid>
+
+    <ion-row>
+      <ion-col col-12>
+        <ion-card class="ion-text-center ion-padding" >
+          <ion-icon name="stats-chart"  size="large"></ion-icon>
+          <p> Your Balance</p>
+          <h1 *ngIf="userData.balance; else loader" style="font-size: 35px;">$ {{userData.balance}} </h1>
+        </ion-card>
+      </ion-col>
+    </ion-row> 
+
+    <ion-row>
+      <ion-col col-6>
+        <ion-card class="ion-text-center ion-padding" >
+          <ion-icon name="person-outline" size="large"></ion-icon>
+          <h2>Profile</h2>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card class="ion-text-center ion-padding">
+          <ion-icon name="search-outline" size="large"></ion-icon>
+          <h2>Search</h2>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-card routerLink="friends" class="ion-text-center ion-padding">
+          <ion-icon name="people-outline" size="large"></ion-icon>
+          <h2>Friends</h2>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <ion-card class="ion-text-center ion-padding">
+          <ion-icon name="send-outline" size="large"></ion-icon>
+          <h2>Send</h2>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card class="ion-text-center ion-padding" >
+          <ion-icon name="hand-right-outline" size="large"></ion-icon>
+          <h2>Request</h2>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <ion-card class="ion-text-center ion-padding">
+          <ion-icon name="swap-vertical" size="large"></ion-icon>
+          <h2>Widthdraw</h2>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="ion-text-center">
+    <ion-button (click)="logOut()" fill="clear" color="danger">
+      <ion-icon slot="start" name="log-out" color="danger"></ion-icon>
+      LOG OUT
+    </ion-button>
+  </div>
+
+
+</ion-content>

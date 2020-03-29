@@ -1,0 +1,250 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+
+  <div class="ion-text-center intro">
+    <img src="../../../../assets/logo_for_white_bg.png" />
+
+    <h4>Register now</h4>
+
+    <h4>And enjoy our cool app !</h4>
+  </div>
+
+  <div class="formDiv">
+
+    <form [formGroup]="registerForm">
+
+      <ion-list>
+
+        <div id="firstNameInputWrapper">
+          <ion-item>
+            <ion-input
+              formControlName="first_name"
+              [(ngModel)]="newUserData.firstName"
+              type="text"
+              maxlength="27"
+              placeholder="First Name"
+              style="text-transform: capitalize;"
+              clearInput
+            ></ion-input>
+          </ion-item>
+
+          <div class="errorMessage">
+            <ion-label
+              *ngIf="registerForm.controls['first_name'].invalid && registerForm.controls['first_name'].dirty || registerForm.controls['first_name'].touched "
+              color="danger"
+            >
+              {{throwValidationError('first_name')}}
+            </ion-label>
+          </div>
+        </div>
+
+        <div
+          id="lastNameInputWrapper"
+          *ngIf="registerForm.controls['first_name'].valid">
+          <ion-item>
+            <ion-input
+              formControlName="last_name"
+              [(ngModel)]="newUserData.lastName"
+              type="text"
+              maxlength="10"
+              placeholder="Last Name"
+              style="text-transform: capitalize;"
+              clearInput>
+            </ion-input>
+          </ion-item>
+
+          <div class="errorMessage">
+            <ion-label
+              *ngIf="registerForm.controls['last_name'].invalid && registerForm.controls['last_name'].dirty || registerForm.controls['last_name'].touched "
+              color="danger"
+            >
+              {{throwValidationError('last_name')}}
+            </ion-label>
+          </div>
+        </div>
+
+        <div
+          id="addressInputWrapper"
+          *ngIf="registerForm.controls['first_name'].valid && registerForm.controls['last_name'].valid">
+          <ion-item>
+            <ion-input
+              formControlName="address"
+              [(ngModel)]="newUserData.address"
+              type="text"
+              placeholder="Address"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="errorMessage">
+            <ion-label
+              *ngIf="registerForm.controls['address'].invalid && registerForm.controls['address'].dirty || registerForm.controls['address'].touched "
+              color="danger"
+            >
+              {{throwValidationError('address')}}
+            </ion-label>
+          </div>
+        </div>
+
+        <div
+          id="emailInputWrapper"
+          *ngIf="registerForm.controls['first_name'].valid && registerForm.controls['last_name'].valid && registerForm.controls['address'].valid">
+          <ion-item>
+            <ion-input
+              formControlName="email"
+              [(ngModel)]="newUserData.email"
+              type="email"
+              placeholder="Email"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="errorMessage">
+            <ion-label
+              *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].dirty || registerForm.controls['email'].touched"
+              color="danger"
+            >
+              {{throwValidationError('email')}}
+            </ion-label>
+          </div>
+        </div>
+
+        <div
+          id="phoneInputWrapper"
+          *ngIf="registerForm.controls['first_name'].valid && 
+                  registerForm.controls['last_name'].valid && 
+                  registerForm.controls['address'].valid &&
+                  registerForm.controls['email'].valid">
+          <ion-item>
+            <ion-input
+              formControlName="phone"
+              [(ngModel)]="newUserData.phone"
+              type="tel"
+              maxlength="9"
+              placeholder="Phone"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="errorMessage">
+            <ion-label
+              *ngIf="registerForm.controls['phone'].invalid && registerForm.controls['phone'].dirty || registerForm.controls['phone'].touched "
+              color="danger"
+            >
+              {{throwValidationError('phone')}}
+            </ion-label>
+          </div>
+        </div>
+
+        <div
+          id="usernameInputWrapper"
+          *ngIf="registerForm.controls['first_name'].valid && 
+                  registerForm.controls['last_name'].valid && 
+                  registerForm.controls['address'].valid &&
+                  registerForm.controls['email'].valid &&
+                  registerForm.controls['phone'].valid">
+          <ion-item>
+            <ion-input
+              (ionChange)="checkUsername()"
+              formControlName="username"
+              [(ngModel)]="newUserData.username"
+              type="text"
+              maxlength="15"
+              placeholder="Create a username"
+              clearInput
+            >
+            </ion-input>
+          </ion-item>
+
+          <div class="errorMessage">
+            <ion-label
+              *ngIf="registerForm.controls['username'].invalid && registerForm.controls['username'].dirty || registerForm.controls['username'].touched "
+              color="danger"
+            >
+              {{throwValidationError('username')}}
+            </ion-label>
+            <ion-label *ngIf="errorMessage !== ''" color="danger">
+              {{errorMessage}}
+            </ion-label>
+          </div>
+        </div>
+
+        <div
+          id="passwordInputWrapper"
+          *ngIf="registerForm.controls['first_name'].valid && 
+                  registerForm.controls['last_name'].valid && 
+                  registerForm.controls['address'].valid &&
+                  registerForm.controls['email'].valid &&
+                  registerForm.controls['phone'].valid &&
+                  registerForm.controls['username'].valid &&
+                  usernameAvailable">
+          <ion-item>
+            <ion-input
+              formControlName="password"
+              [(ngModel)]="newUserData.password"
+              type="password"
+              placeholder="Password">
+            </ion-input>
+          </ion-item>
+
+          <div class="errorMessage">
+            <ion-label
+              *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].dirty || registerForm.controls['password'].touched "
+              color="danger">
+              {{throwValidationError('password')}}
+            </ion-label>
+          </div>
+        </div>
+
+        <div
+          id="pictureSelectWrapper"
+          *ngIf="registerForm.controls['first_name'].valid && 
+                  registerForm.controls['last_name'].valid && 
+                  registerForm.controls['address'].valid &&
+                  registerForm.controls['email'].valid &&
+                  registerForm.controls['phone'].valid &&
+                  registerForm.controls['username'].valid &&
+                  registerForm.controls['password'].valid">
+          <ion-item>
+            <ion-avatar *ngIf="base64Img !== ''" slot="start" class="avatar">
+              <img [src]="base64Img" />
+            </ion-avatar>
+            <ion-label>Profile picture (not mandatory) </ion-label>
+            <ion-button (click)="selectPictureFromGallery()" color="primary">
+              <ion-icon slot="icon-only" name="images"></ion-icon>
+            </ion-button>
+            <ion-button (click)="takePictureFromCamera()" color="primary">
+              <ion-icon slot="icon-only" name="camera"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </div>
+
+      </ion-list>
+
+      <ion-button
+        (click)="register()"
+        [disabled]="registerForm.invalid || !usernameAvailable"
+        expand="full"
+        shape="round"
+        class="registerBtn">
+        Register
+      </ion-button>
+
+    </form>
+
+  </div>
+
+  <div class="ion-text-center">
+    <ion-button routerLink="/home" fill="clear" style="color: #50bfbf;">
+      Maybe later
+    </ion-button>
+  </div>
+</ion-content>

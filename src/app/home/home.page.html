@@ -1,20 +1,126 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+<ion-header *ngIf="dismissed" [translucent]="true" class="ion-no-border">
+  <div class="logo-header ion-padding">
+    <!-- <img src="../../assets/logo_for_blue_bg.png" class="logo-img" /> -->
+    <h1 style="color: white; text-align: center;">Logo</h1>
+  </div>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div *ngIf="!dismissed"  class="welcome">
+
+    <ion-slides pager="true" [options]="slideOpts">
+
+      <ion-slide>
+        <img
+          src="../../assets/logo_for_white_bg.png"
+          alt=""
+          style="margin-bottom: -25px;"/>
+        <h1>Welcome to the App</h1>
+        <p>A demo ionic project</p>
+      </ion-slide>
+
+      <ion-slide>
+        <img
+          src="../../assets/keep.png"
+          alt=""
+          style="height: 275px; margin-top: -45px; margin-bottom: -30px; margin-right: 40px;"/>
+        <h1>Slide 2</h1>
+        <p>A demo ionic project</p>
+      </ion-slide>
+
+      <ion-slide>
+        <img src="../../assets/send.png" alt="" style="height: 190px;" />
+        <h1>Slide 3</h1>
+        <p>A demo ionic project</p>
+      </ion-slide>
+
+      <ion-slide>
+        <img src="../../assets/withdraw.png" alt="" style="height: 190px;" />
+        <h1>Slide 4</h1>
+        <p>A demo ionic project</p>
+        <ion-button
+        (click)="dismissSlider()"
+        expand="block"
+        shape="round"
+        class="startBtn">
+        Start
+      </ion-button>
+      </ion-slide>
+
+    </ion-slides>
+
   </div>
+
+  <div *ngIf="dismissed" class="ion-text-center homeDiv">
+
+    <div class="heading">
+      <h1>Please log in</h1>
+    </div>
+
+    <ion-list>
+      <div class="inputsDiv">
+        <form method="POST" #loginForm="ngForm">
+          <ion-item>
+            <ion-label position="floating">Username</ion-label>
+            <ion-input
+              [(ngModel)]="loginData.username"
+              #username="ngModel"
+              name="uname"
+              class="myInput"
+              type="text"
+              clearInput
+              required>
+            </ion-input>
+            <ion-icon name="person-outline" slot="start" style="color: black;"></ion-icon>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input
+              [(ngModel)]="loginData.password"
+              #password="ngModel"
+              name="pwd"
+              class="myInput"
+              type="password"
+              clearInput
+              required
+            ></ion-input>
+            <ion-icon name="lock-closed-outline" slot="start" style="color: black;"></ion-icon>
+          </ion-item>
+
+          <ion-button
+            [disabled]="!loginForm.valid"
+            (click)="login()"
+            expand="block"
+            shape="round"
+            size="large"
+            class="loginBtn"
+          >
+            Log in
+          </ion-button>
+        </form>
+      </div>
+    </ion-list>
+    
+    <div *ngIf="errorMessage !== ''" class="errorMessage">
+      <ion-label color="danger"> {{errorMessage}} </ion-label>
+    </div>
+
+    <div *ngIf="newUser"  class="registerDiv">
+      <h3>New user ?</h3>
+
+      <ion-button routerLink="/register" fill="clear" style="color: #219BF3;" >
+        Register
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- <ion-button (click)="yea()">
+    yea
+  </ion-button> -->
+
+  <!-- <ion-button (click)="see()">
+    see
+  </ion-button> -->
+
 </ion-content>

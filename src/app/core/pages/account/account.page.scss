@@ -1,0 +1,32 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+ion-toolbar {
+  --background: #1aa468;
+  ion-title {
+    color: white;
+  }
+}
+
+ion-card {
+  background: #1AA468;
+  margin-top: 0px;
+  ion-icon {
+    color: white;
+  }
+  h1, h2, p {
+    color: white;
+  }
+}
+
+.userInfo {
+  img {
+    width: 125px;
+    height: 125px;
+    margin-top: 5px;
+    margin-bottom: -15px;
+    border-radius: 50%;
+  }
+}
+
