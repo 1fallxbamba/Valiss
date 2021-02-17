@@ -90,7 +90,11 @@ export class RegisterPage implements OnInit {
 
   }
 
-  ngOnInit() {} // add internet conncection verification
+  ngOnInit() {
+
+    this.storer.setUserStatus('NEW');
+
+  } // add internet conncection verification later
 
   async register() {
 
@@ -127,9 +131,9 @@ export class RegisterPage implements OnInit {
 
       return this.auth.registerNewUser(this.newUserData).subscribe((data) => {
 
-        if (data === 'New user successfully registered') {
+        if (data === 'NUSR') {
 
-          // this.storer.storeUsername(this.newUserData.username);
+          this.storer.setUserStatus('OLD');
 
           if (this.base64Img !== '') {
 
@@ -139,15 +143,12 @@ export class RegisterPage implements OnInit {
 
               this.notify('Success !', `You are successfully registered.`);
 
-              this.initialize(this.newUserData);
-
               this.router.navigate(['/home']);
 
             }, error => {
               load.dismiss();
               this.notify('1/2 success !',
                 'You are registed but an unexcpected error happened while uploading the picture, you can add the picture later :).');
-              this.initialize(this.newUserData);
               this.router.navigate(['/home']);
             });
 
@@ -157,14 +158,12 @@ export class RegisterPage implements OnInit {
 
             this.notify('Success !', 'You are successfully registered, you can add a profile picture later :)');
 
-            this.initialize(this.newUserData);
-
             this.router.navigate(['/home']);
 
           }
 
 
-        } else if (data === 'Error') {
+        } else if (data === 'URE' || data === 'GRE') {
 
           load.dismiss();
           this.notify('Error1', 'An unexpected error occured while registering, try again later');
@@ -192,24 +191,29 @@ export class RegisterPage implements OnInit {
 
     this.auth.validateUsername(this.newUserData.username).subscribe((data) => {
 
-      if (data === 'Not available') {
-
-        this.usernameAvailable = false;
-
-        this.errorMessage = 'The username is not available !';
-
-      } else {
+      if (data === 'UIA') {
 
         this.usernameAvailable = true;
 
         this.errorMessage = '';
 
+      } else if (data === 'UNA') {
+
+        this.usernameAvailable = false;
+
+        this.errorMessage = 'This username is not available !';
+
+      } else {
+
+        this.notify('Unexpected.', 'An error occured while checking the availability of the username, please try again later');
+        this.router.navigate(['/home']);
+
       }
 
     },
       error => {
-        this.notify('Connection Error.', 'Unable to verify the availability of the username, check your internet and try again later'),
-          this.router.navigate(['/home']);
+        this.notify('Connection Error.', 'Unable to verify the availability of the username, check your internet and try again later');
+        this.router.navigate(['/home']);
       }
     );
 

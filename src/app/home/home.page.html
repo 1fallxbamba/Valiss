@@ -1,7 +1,7 @@
 <ion-header *ngIf="dismissed" [translucent]="true" class="ion-no-border">
   <div class="logo-header ion-padding">
-    <!-- <img src="../../assets/logo_for_blue_bg.png" class="logo-img" /> -->
-    <h1 style="color: white; text-align: center;">Logo</h1>
+    <img src="../../assets/logo_green_bg.png" class="logo-img" />
+    <!-- <h1 style="color: white; text-align: center;">Logo</h1> -->
   </div>
 </ion-header>
 
@@ -13,9 +13,8 @@
 
       <ion-slide>
         <img
-          src="../../assets/logo_for_white_bg.png"
-          alt=""
-          style="margin-bottom: -25px;"/>
+          src="../../assets/logo_white_bg.png"
+          alt=""/>
         <h1>Welcome to the App</h1>
         <p>A demo ionic project</p>
       </ion-slide>
@@ -106,7 +105,7 @@
       <ion-label color="danger"> {{errorMessage}} </ion-label>
     </div>
 
-    <div *ngIf="newUser"  class="registerDiv">
+    <div *ngIf="isNewUser"  class="registerDiv">
       <h3>New user ?</h3>
 
       <ion-button routerLink="/register" fill="clear" style="color: #219BF3;" >
@@ -114,13 +113,5 @@
       </ion-button>
     </div>
   </div>
-
-  <!-- <ion-button (click)="yea()">
-    yea
-  </ion-button> -->
-
-  <!-- <ion-button (click)="see()">
-    see
-  </ion-button> -->
 
 </ion-content>

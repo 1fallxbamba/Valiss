@@ -3,35 +3,52 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="account"></ion-back-button>
     </ion-buttons>
-    <ion-title style="margin-left: -50px;" class="ion-text-center">My Friends</ion-title>
+    <ion-title >My Friends</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content> 
 
-      <ng-template #loader>
-        <h3 style="text-align: center !important;">Getting friends</h3>
-        <div class="ion-text-center">
+  <div *ngIf="!noFriendsYet" >
 
-          <ion-spinner name="bubbles"></ion-spinner>
-
-        </div>
-    
-  </ng-template>
-
-
-  <div *ngIf="FriendsData; else loader" >
-
-    <ion-list >
-      <ion-item  *ngFor="let friendname of FriendsData.names; let i = index" >
+    <ion-list *ngIf="!toSend" >
+      <ion-item *ngFor="let friendname of FriendsData?.names; let i = index" (click)="goToUserPage(FriendsData?.usernames[i])" >
         <ion-avatar slot="start">
-          <img src="http://daavsecurite.com/yea/yeaapi/core/post/file/uploads/{{FriendsData.pictures[i]}}">
+          <img [src]="pictureLink+FriendsData?.pictures[i]">
         </ion-avatar>
-        <h3> {{friendname}}  </h3>
-         <p> {{FriendsData.usernames[i]}} </p>
+        <h3> {{friendname}} 
+          <!-- <span style="font-size: 15px;font-style: italic; font-weight: 600; color: #1aa468;"> ({{FriendsData.usernames[i]}})</span>  -->
+         </h3>
       </ion-item>
      
     </ion-list>
+
+    <ion-list *ngIf="toSend" >
+      <ion-item *ngFor="let friendname of FriendsData?.names; let i = index" (click)="goToSendPage(FriendsData?.usernames[i])" >
+        <ion-avatar slot="start">
+          <img [src]="pictureLink+FriendsData?.pictures[i]">
+        </ion-avatar>
+        <h3> {{friendname}} 
+          <!-- <span style="font-size: 15px;font-style: italic; font-weight: 600; color: #1aa468;"> ({{FriendsData.usernames[i]}})</span>  -->
+         </h3>
+      </ion-item>
+     
+    </ion-list>
+
+  </div>
+
+  <div *ngIf="noFriendsYet" class="ion-text-center noFriendsYet" style="margin-top: 50%;">
+
+    <h3>
+      You have no friends yet, you can <br>
+
+      <ion-button routerLink="../../searchuser" size="large" fill="clear" style="color: #50bfbf; margin-top: -10px; margin-bottom: -7px;">
+        Search
+      </ion-button>
+<br>
+      a user and add him to your friends list for quick send.
+
+    </h3>
 
   </div>
 

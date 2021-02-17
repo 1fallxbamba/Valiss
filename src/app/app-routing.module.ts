@@ -11,13 +11,9 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    canActivate: [AuthgardService],
+    // canActivate: [AuthgardService],
     loadChildren: () => import('./core/pages/account/account.module').then( m => m.AccountPageModule)
-  },
-  // {
-  //   path: 'friends',
-  //   loadChildren: () => import('./core/pages/friends/friends.module').then( m => m.FriendsPageModule)
-  // },
+  }
 ];
 
 @NgModule({

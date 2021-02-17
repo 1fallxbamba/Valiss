@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons style="color: white;" slot="start">
+      <ion-back-button defaultHref="account"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Search a user</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <div class="searchInput"> 
+
+    <ion-item>
+
+      <ion-input [(ngModel)]="username" #val="ngModel" (ionChange)="search()" placeholder="Enter a username" maxlength="15" >
+
+      </ion-input>
+
+    </ion-item>
+
+
+  </div>
+
+  <div id="loader" class="ion-text-center" style="display: none; margin-top: 25px;">
+
+    <!-- <ion-spinner name="bubbles"></ion-spinner> -->
+
+    <img src="../../../../assets/loader_eclipse.gif" alt="">
+
+</div>
+
+<div *ngIf="userNotFound" class="ion-text-center userNotFound" >
+
+  <h3>No user has been found, check the spelling </h3>
+
+</div>
+
+  <div *ngIf="Users">
+
+    <ion-list *ngIf="!toSend"  >
+      <ion-item *ngFor="let user of Users" (click)="goToUserPage(user.vusr_username)" >
+        <ion-avatar slot="start">
+          <img [src]="pictureLink+user.vusr_photo">
+        </ion-avatar>
+        <h3> {{user.vusr_name}}  
+          <span style="font-size: 15px;font-style: italic; font-weight: 600; color: #1aa468;"> ({{user.vusr_username}})</span>
+        </h3>
+      </ion-item>
+     
+    </ion-list>
+
+    <ion-list *ngIf="toSend" >
+      <ion-item *ngFor="let user of Users" (click)="goToSendPage(user.vusr_username)" >
+        <ion-avatar slot="start">
+          <img [src]="pictureLink+user.vusr_photo">
+        </ion-avatar>
+        <h3> {{user.vusr_name}}  
+          <span style="font-size: 15px;font-style: italic; font-weight: 600; color: #1aa468;"> ({{user.vusr_username}})</span>
+        </h3>
+      </ion-item>
+     
+    </ion-list>
+
+  </div>
+
+  </ion-content>

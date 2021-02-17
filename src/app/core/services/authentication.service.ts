@@ -1,13 +1,16 @@
-// This service handles all the Authentication
+// This service handles all the Authentication operations
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+
+import { Observable } from 'rxjs';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 const apiEndpoint = 'http://localhost/valissapi/core/auth/';
 
-const remoteApiEndpoint = 'http://daavsecurite.com/yea/yeaapi/core/auth/';
+// const remoteApiEndpoint = 'http://daavsecurite.com/yea/yeaapi/core/auth/';
 
 const httpOptions = {
 
@@ -27,27 +30,27 @@ export class AuthenticationService {
 
   loginState = false;
 
-  logUserIn(userData): Observable<any> {
-
-    return this.http.post(remoteApiEndpoint + 'login.php', JSON.stringify(userData), httpOptions);
-
-  }
-
-  registerNewUser(userData): Observable<any> {
-
-    return this.http.post(remoteApiEndpoint + 'register.php', JSON.stringify(userData), httpOptions);
-
-  }
-
-  validateUsername(username): Observable<any> {
-
-    return this.http.get(remoteApiEndpoint + 'validate.php?uname=' + username);
-
-  }
-
   isUserLoggedIn() {
 
     return this.loginState;
+
+  }
+
+  logUserIn(userData: any): Observable<any> {
+
+    return this.http.post(apiEndpoint + 'login.php', JSON.stringify(userData), httpOptions);
+
+  }
+
+  registerNewUser(userData: any): Observable<any> {
+
+    return this.http.post(apiEndpoint + 'register.php', JSON.stringify(userData), httpOptions);
+
+  }
+
+  validateUsername(username: string): Observable<any> {
+
+    return this.http.get(apiEndpoint + 'validate.php?uname=' + username);
 
   }
 

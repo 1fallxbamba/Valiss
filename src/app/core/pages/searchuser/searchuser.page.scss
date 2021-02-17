@@ -1,0 +1,23 @@
+* {
+    font-family: "Poppins", sans-serif;
+  }
+  
+  ion-toolbar {
+    --background: #1aa468;
+    ion-title {
+      color: white;
+    }
+  }
+
+  .searchInput {
+    margin-top: 25%;
+    margin-left: 50px;
+    margin-right: 50px;
+    ion-input{
+      text-align: center;
+    }
+  }
+
+  .userNotFound{
+    margin-top: 75px;
+  }

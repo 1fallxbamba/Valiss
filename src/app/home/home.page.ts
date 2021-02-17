@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
 
   dismissed = false;
 
-  newUser = true;
+  isNewUser = true;
 
   constructor(
     public storer: StorageService,
@@ -39,7 +39,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
 
-    this.auth.loginState = false;
+    this.auth.loginState = false; // when we are on the login page it (obviously) means that no one is connected
 
     // Checks if the slider has been dismissed or not, by retrieving the value of the locally stored key
     this.storer.getWelcomeSliderStatus().then((val) => {
@@ -52,47 +52,48 @@ export class HomePage implements OnInit {
 
     });
 
-    // this.storer.setUsername();
+    // checks if the user is already registered then i hide the "Registration section" , it's a guard so that a user registers only once
+    this.storer.getUserStatus().then((val) => {
 
-    // console.log(this.storer.username);
+      if (val === 'OLD') {
+        this.isNewUser = false;
+      } else {
+        this.isNewUser = true;
+      }
 
-    // this.storer.getUsername().then((val) => {
-
-    //   this.storer.username = val;
-
-    //   if (val) {
-    //     this.newUser = false;
-    //   } else {
-    //     this.newUser = true;
-    //   }
-
-    // });
+    });
 
   }
 
-  async dismissSlider() {  // Sets the value of the stored key to 'Dismissed' so that the welcome slider won't show up, again
+  // Sets the value of the stored key to 'Dismissed' so that the welcome slider won't show up, again
+  async dismissSlider() {
     await this.storer.setWelcomeSliderStatus();
     this.dismissed = true;
   }
 
   async login() {
 
-    const load = await this.loader.create({
+    const load = await this.loader.create({ // creates a loader
       spinner: 'circular',
-      message: 'Authenticating...'
+      message: 'Authenticating...',
     });
 
-    load.present().then(() => {
+    load.present().then(() => {  // shows the loader until there is no response from the API
 
       return this.auth.logUserIn(this.loginData).subscribe((data) => {
 
         load.dismiss();
 
-        if (data === 'Connected') {
+        if (data === 'USC') { // if the username and password match
 
           this.errorMessage = '';
 
-          this.storer.storeUsername(this.loginData.username);
+          /* if first wanted to make a Single User app,
+          so that only the owner of the device can connect and use the app
+          but i changed my mind and now with the following line anyone
+          can connect from any device
+           It sets the connected user to whoever is successfully connected */
+          this.storer.setConnectedUser(this.loginData.username);
 
           this.auth.loginState = true;
 
@@ -100,11 +101,11 @@ export class HomePage implements OnInit {
 
           this.initialize(this.loginData);
 
-        } else if (data === 'Wrong password') {
+        } else if (data === 'WPWD') {
 
           this.errorMessage = 'The password entered is incorrect !';
 
-        } else if (data === 'User does not exist') {
+        } else if (data === 'UDNE') {
 
           this.errorMessage = 'The username entered is incorrect !';
 
@@ -113,7 +114,7 @@ export class HomePage implements OnInit {
         }
 
       },
-        error => { // Handles any type of error that can occur, stops the loading spinner and notifies the user
+        error => { // Anytime you see this, it means any type of error that  occur is caught, the loader stopped and the user notified
           load.dismiss();
           this.notify('Connection Error.',
             'An unexpected error occured while connecting to the server, please check your internet connection and try again later !');
@@ -138,17 +139,5 @@ export class HomePage implements OnInit {
     obj.username = '';
     obj.password = '';
   }
-
-  // yea() {
-
-  //   this.storer.storeUsername('tonyS');
-
-  // }
-
-  // see() {
-  //   this.storer.getUsername().then((val) => {
-  //     console.log(val);
-  //   });
-  // }
 
 }
